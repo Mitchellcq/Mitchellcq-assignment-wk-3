@@ -146,19 +146,20 @@ function writePassword() {
     else {
       alert("Please enter a value between 8 and 128");
     }
-}
+};
 
-  function generatePassword() {
+function generatePassword(event) {
+  event.preventDefault();
 
-    for (i = 0, i < passwordLength.length, i++) {
+  for (i = 0, i < passwordLength.length, i++){
 
-      var j = Math.floor(Math.random() * selectedCharacters.length);
+    var j = Math.floor(Math.random() * selectedCharacters.length);
     
-    return (" " += selectedCharacters[j]);
+  password.innerHTML += selectedCharacters[j];
 
-    }
-    
   }
+    
+};
 
    
         
