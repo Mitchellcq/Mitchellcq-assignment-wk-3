@@ -150,11 +150,11 @@ function writePassword() {
 
   function generatePassword() {
 
-    for (i = 0, i < passwordLength.length, i++){
+    for (i = 0, i < passwordLength.length, i++) {
 
       var j = Math.floor(Math.random() * selectedCharacters.length);
     
-    password.innerHTML += selectedCharacters[j];
+    return (" " += selectedCharacters[j]);
 
     }
     
