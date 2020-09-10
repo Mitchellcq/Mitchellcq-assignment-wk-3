@@ -1,6 +1,3 @@
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
-
 var specialCharacters = [
   '@',
   '%',
@@ -87,82 +84,46 @@ var lowerCasedCharacters = [
 
 var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-var selectedCharacters = [];
+var charRange = document.getElementById("charRange");
+var charNum = document.getElementById("charNum");
+var generate = document.getElementById("generate");
+var upperEle = document.getElementById("IncludeUpper");
+var numberEle = document.getElementById("IncludeNumber");
+var symbolEle = document.getElementById("IncludeSymbol");
+var passwordEle = document.getElementById("password");
 
+charRange.addEventListener('input', syncCharAmount);
+charNum.addEventListener('input', syncCharAmount);
 
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
- 
-  passwordText.value = password;
+generate.addEventListener('click', e => {
+  e.preventDefault();
+  var charAmount = charNum.value;
+  var uppers = upperEle.checked;
+  var numbers = numberEle.checked;
+  var symbols = symbolEle.checked;
 
-  //prompt for password length
-  var passwordLength = prompt("Select a password length between 8 and 128");
-        
-      //logic to ensure correct length selected
-    if (passwordLength >=8 && passwordLength <=128) {
+  var password = generatePassword(charAmount, uppers, numbers, symbols);
+  passwordEle.textContent = password;
+});
 
-        console.log(passwordLength);
+function generatePassword(charAmount, uppers, numbers, symbols) {
+   var charCodes = lowerCasedCharacters;
+  if (uppers == true) charCodes = charCodes + upperCasedCharacters;
+  if (numbers == true) charCodes = charCodes + numericCharacters;
+  if (symbols == true) charCodes = charCodes + specialCharacters;
 
-          //prompts for selecting character type
-        var LC = confirm("Use Lower case characters?");
-        var UC = confirm("Use Upper case characters?");
-        var N = confirm("Use Numeric characters?");
-        var SC = confirm("Use Special characters?");
-
-            //code to make sure a character is selected
-          if (LC == true || UC == true || N == true || SC == true){
-
-              if (LC == true) {
-                selectedCharacters += lowerCasedCharacters;
-              }
-
-              if (UC == true) {
-                selectedCharacters += upperCasedCharacters;
-              }
-
-              if (N == true) {
-                selectedCharacters += numericCharacters;
-              }
-
-              if (SC == true) {
-                selectedCharacters += specialCharacters;
-              }
-            
-            console.log(selectedCharacters);
-
-            generatePassword();
-
-          }
-        
-          else {
-            alert("Please select at least one character type");
-          }
-          
-    } 
-        
-        //error message if incorrect values entered
-    else {
-      alert("Please enter a value between 8 and 128");
-    }
-};
-
-function generatePassword(event) {
-  event.preventDefault();
-
-  for (i = 0, i < passwordLength.length, i++){
-
-    var j = Math.floor(Math.random() * selectedCharacters.length);
-    
-  password.innerHTML += selectedCharacters[j];
-
+  var passwordChars =[];
+  for (var i =0; i < charAmount; i++) {
+    var character = charCodes[Math.floor(Math.random()* charCodes.length)];
+    passwordChars.push(character);
   }
-    
-};
+  return passwordChars.join('');
 
-   
-        
+}
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+function syncCharAmount(event){
+  var value = event.target.value;
+  charNum.value = value;
+  charRange.value = value;
+}
+

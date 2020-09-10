@@ -23,6 +23,36 @@ body {
   padding-right: 20px;
 }
 
+#password {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  word-break: break-all;
+}
+
+label{
+  font-weight: bold;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: auto auto;
+  row-gap: 1rem;
+  column-gap: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+#charSelectContainer {
+  display: flex;
+  align-items: center;
+}
+
+#charNum {
+  width: 3rem;
+}
+
 header {
   text-align: center;
   padding: 20px;
